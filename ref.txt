@@ -1,0 +1,7 @@
+[ex]動態折現用js呈現
+http://jsfiddle.net/nrabinowitz/XytnD/
+[ex]一個折線圖 動態折現
+http://blog.visual.ly/wp-content/uploads/2012/06/transitions.html#13
+
+[stackoverflow]
+http://stackoverflow.com/questions/13353665/cant-make-paths-draw-growing-slowly-with-d3
