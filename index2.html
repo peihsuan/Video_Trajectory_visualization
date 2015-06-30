@@ -1,0 +1,91 @@
+
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
+<script>
+//The data for our line
+/*var lineData = [
+        {
+            "x": 238,
+            "point": "0",
+            "y": 289
+        },
+        {
+            "x": 234,
+            "point": "1",
+            "y": 293
+        }
+    ];
+     */    
+ 
+ //This is the accessor function we talked about above
+ var lineFunction = d3.svg.line()
+                          .x(function(d) { return d.x; })
+                          .y(function(d) { return d.y; })
+                         .interpolate("monotone");
+
+
+//The SVG Container
+var svgContainer = d3.select("body").append("svg")
+                                    .attr("width", 720)
+                                    .attr("height", 480);
+
+//The line SVG Path we draw
+/*var lineGraph = svgContainer.append("path")
+                            .attr("d", lineFunction(lineData))
+                            .attr("stroke", "blue")
+                            .attr("class", "line ani")
+                            .attr("stroke-width", 2)
+                            .attr("fill", "none");
+                            */
+/*
+d3.csv("data.csv", function(data) {
+  console.log(data);
+});
+*/
+d3.json("result.json", function(error,data) {
+   for (traj in data) {
+        var traj_data = data[traj];
+       svgContainer.append("path")
+       				.attr("d",lineFunction(traj_data))
+       				.attr("stroke", "blue")
+                    .attr("class", "line ani")
+                    .attr("stroke-width", 2)
+                    .attr("fill", "none");
+    }
+});
+
+/*
+var lineGraph2 = svgContainer.append("path")
+                            .attr("d", lineFunction(line2))
+                            .attr("stroke", "brown")
+                            .attr("class", "line ani")
+                            .attr("stroke-width", 2)
+                            .attr("fill", "none");
+var lineGraph3 = svgContainer.append("path")
+                            .attr("d", lineFunction(line3))
+                            .attr("stroke", "orange")
+                            .attr("class", "line ani")
+                            .attr("stroke-width", 2)
+                            .attr("fill", "none");      
+                            */                      
+</script>
+
+ <style>
+svg{
+	background-image: url("back.jpg")
+}
+.line{
+	stroke-dasharray: 200;
+	stroke-dashoffset: 200;
+}
+.ani {
+	animation: line-draw 5s linear infinite
+}
+@keyframes line-draw{
+	80% {
+		stroke-dashoffset: 0;
+		}
+	}
+
+ </style>
+</body>
