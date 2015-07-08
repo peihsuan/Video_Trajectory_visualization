@@ -2,21 +2,7 @@
 <body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
 <script>
-//The data for our line
-/*var lineData = [
-        {
-            "x": 238,
-            "point": "0",
-            "y": 289
-        },
-        {
-            "x": 234,
-            "point": "1",
-            "y": 293
-        }
-    ];
-     */    
- 
+//The data for our line 
  //This is the accessor function we talked about above
  var lineFunction = d3.svg.line()
                           .x(function(d) { return d.x; })
@@ -42,31 +28,78 @@ d3.csv("data.csv", function(data) {
 });
 */
 var i=0;
-d3.json("result.json", function(error,data) {
-   for (traj in data) {
+//var l;
+d3.json("result_first_10min.json", function(error,data) { 
+  for (traj in data) {
     var traj_data = data[traj];
-      if(i<1000){
+      if(i<100){
           svgContainer.append("path")
+              .attr("stroke-dasharray",1200)
+              .attr("stroke-dashoffset",1200)
               .attr("d",lineFunction(traj_data))
-              .attr("class","line ani1 line_array");
+              .attr("class","line").transition().duration(30000).ease("linear").attr({
+    "stroke-dashoffset": -10000
+  });;
           console.log(i);
       }
-      else if(i>=1000&&i<2000){
+      else if(i>=100&&i<200){
         svgContainer.append("path")
+              .attr("stroke-dasharray",1200)
+              .attr("stroke-dashoffset",1200)
               .attr("d",lineFunction(traj_data))
-              .attr("class","line ani2 line_array");
+              .attr("class","line").transition().duration(8000).delay(i*300).ease("linear").attr({
+    "stroke-dashoffset": -10000
+  });;;
         console.log(i);
       }
-      else if(i>=2000 && i<3000){
+      else if(i>=200 && i<300){
         svgContainer.append("path")
+              .attr("stroke-dasharray",1200)
+              .attr("stroke-dashoffset",1200)
               .attr("d",lineFunction(traj_data))
-              .attr("class","line ani3 line_array");
+              .attr("class","line").transition().duration(8000).delay(i*300).ease("linear").attr({
+    "stroke-dashoffset": -10000
+  });;;
+        console.log(i);
+      }
+      else if(i>=300 && i<400){
+        svgContainer.append("path")
+              .attr("stroke-dasharray",1200)
+              .attr("stroke-dashoffset",1200)
+              .attr("d",lineFunction(traj_data))
+              .attr("class","line").transition().duration(20000).delay(i*300).ease("linear").attr({
+    "stroke-dashoffset": -10000
+  });;;
+        console.log(i);
+      }
+      else if(i>=400 && i<500){
+        svgContainer.append("path")
+              .attr("stroke-dasharray",1200)
+              .attr("stroke-dashoffset",1200)
+              .attr("d",lineFunction(traj_data))
+              .attr("class","line").transition().duration(20000).delay(i*300).ease("linear").attr({
+    "stroke-dashoffset": -10000
+  });;;
+        console.log(i);
+      }
+      else if(i>=500 && i<600){
+        svgContainer.append("path")
+              .attr("stroke-dasharray",1200)
+              .attr("stroke-dashoffset",1200)
+              .attr("d",lineFunction(traj_data))
+              .attr("class","line").transition().duration(20000).delay(i*300).ease("linear").attr({
+    "stroke-dashoffset": -10000
+  });;;
         console.log(i);
       }
       else{
         svgContainer.append("path")
+              .attr("stroke-dasharray",1200)
+              .attr("stroke-dashoffset",1200)
               .attr("d",lineFunction(traj_data))
-              .attr("class","line ani4 line_array");
+              .attr("class","line").transition().duration(20000).delay(i*300).ease("linear").attr({
+    "stroke-dashoffset": -10000
+  });;;
         console.log(i);
       }
       i++;
@@ -77,40 +110,13 @@ d3.json("result.json", function(error,data) {
 
  <style>
 svg{
-  background-image: url("back.jpg")
+  background-image: url("Background.png")
 }
-.line{
+path{
   stroke:blue;
   opacity: 0.4;
   stroke-width:2;
   fill:none;
 }
-.line_array{
-  stroke-dasharray: 3400;
-  stroke-dashoffset: 3400;
-}
-.ani1 {
-  animation: line-draw 6s linear infinite;
-}
-.ani2{
-  animation: line-draw 10s linear infinite;
-  animation-delay: 5s;
-}
-.ani3{
-  animation: line-draw 12s linear infinite;
-  animation-delay: 20s;
-}
-.ani4{
-  animation: line-draw 14s linear infinite;
-  animation-delay: 30s;
-}
-
-@keyframes line-draw{
-  100% {
-    stroke-dashoffset: 0;
-    
-    }
-  }
-
  </style>
 </body>

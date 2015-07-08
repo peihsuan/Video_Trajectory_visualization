@@ -1,0 +1,138 @@
+
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
+<script>
+//The data for our line
+/*var lineData = [
+        {
+            "x": 238,
+            "point": "0",
+            "y": 289
+        },
+        {
+            "x": 234,
+            "point": "1",
+            "y": 293
+        }
+    ];
+     */    
+ 
+ //This is the accessor function we talked about above
+ var lineFunction = d3.svg.line()
+                          .x(function(d) { return d.x; })
+                          .y(function(d) { return d.y; })
+                         .interpolate("monotone");
+
+
+//The SVG Container
+var svgContainer = d3.select("body").append("svg")
+                                    .attr("width", 720)
+                                    .attr("height", 480);
+//The line SVG Path we draw
+/*var lineGraph = svgContainer.append("path")
+                            .attr("d", lineFunction(lineData))
+                            .attr("stroke", "blue")
+                            .attr("class", "line ani")
+                            .attr("stroke-width", 2)
+                            .attr("fill", "none");
+                            */
+/*
+d3.csv("data.csv", function(data) {
+  console.log(data);
+});
+*/
+//var i=0;
+var l;
+d3.json("result.json", function(error,data,i) {
+  
+   p = svgContainer.selectAll("path").data(data).enter().append("path").style({
+    "stroke-width": 3,
+    "stroke": 'orange',
+    "opacity": 0.6,
+    "fill": "none"
+  }).attr({
+    "d": function(it){
+      return lineFunction(traj_data);
+    },
+    "class": function(d, i){
+      return "p" + i;
+    }
+  });
+  //l = p.node().getTotalLength();
+  return p.attr({
+ //   "stroke-dasharray": l / 10 + " " + l / 10,
+  //  "stroke-dashoffset": l
+  }).transition().duration(100000).ease("linear").attr({
+   // "stroke-dashoffset": -100000
+  });
+  /*for (traj in data) {
+    var traj_data = data[traj];
+      if(i<1000){
+          svgContainer.append("path")
+              .attr("d",lineFunction(traj_data))
+              .attr("class","line ani1 line_array");
+          console.log(i);
+      }
+      else if(i>=1000&&i<2000){
+        svgContainer.append("path")
+              .attr("d",lineFunction(traj_data))
+              .attr("class","line ani2 line_array");
+        console.log(i);
+      }
+      else if(i>=2000 && i<3000){
+        svgContainer.append("path")
+              .attr("d",lineFunction(traj_data))
+              .attr("class","line ani3 line_array");
+        console.log(i);
+      }
+      else{
+        svgContainer.append("path")
+              .attr("d",lineFunction(traj_data))
+              .attr("class","line ani4 line_array");
+        console.log(i);
+      }
+      i++;
+    }*/
+});
+                  
+</script>
+
+ <style>
+svg{
+  background-image: url("back.jpg")
+}
+.line{
+  stroke:blue;
+  opacity: 0.4;
+  stroke-width:2;
+  fill:none;
+}
+.line_array{
+  stroke-dasharray: 3400;
+  stroke-dashoffset: 3400;
+}
+.ani1 {
+  animation: line-draw 6s linear infinite;
+}
+.ani2{
+  animation: line-draw 10s linear infinite;
+  animation-delay: 5s;
+}
+.ani3{
+  animation: line-draw 12s linear infinite;
+  animation-delay: 20s;
+}
+.ani4{
+  animation: line-draw 14s linear infinite;
+  animation-delay: 30s;
+}
+
+@keyframes line-draw{
+  100% {
+    stroke-dashoffset: 0;
+    
+    }
+  }
+
+ </style>
+</body>
