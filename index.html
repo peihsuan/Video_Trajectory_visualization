@@ -31,27 +31,20 @@ var i=0;
 d3.json("result_first_10min_noduplicate_time.json", function(error,data) { 
   for (traj in data) {
     var traj_data = data[traj];
-        if(i%10==1||2||3||4||5||6){
+    var appear_time=0;
+    var end_time=0;
+    var traj_size=0;
+    appear_time=traj_data[0].time;
+    traj_size=traj_data.length;
+    end_time = traj_data[traj_size-1].time;
           p = svg.append("path")
-              .attr("stroke-dasharray",2400 +' '+2400)
+              .attr("stroke-dasharray",2400 )
               .attr("stroke-dashoffset",2400)
               .attr("d",lineFunction(traj_data))
-              .attr("class","line").transition().duration(20000).delay(i*50).ease("linear").attr({
+              .attr("class","line").transition().duration((end_time-appear_time)*1000).delay((appear_time-12)*1000).ease("linear").attr({
                   "stroke-dashoffset": -5000
               }).remove();
-        }
-        else{
-           p = svg.append("path")
-              .attr("stroke-dasharray",2400 +' '+2400)
-              .attr("stroke-dashoffset",2400)
-              .attr("d",lineFunction(traj_data))
-              .attr("class","line").transition().duration(20000).delay(i*150).ease("linear").attr({
-                  "stroke-dashoffset": -5000
-              }).remove();
-        }
-           //  console.log(p);
-         //  var time =traj_data['time'];
-           //console.log(traj_data);
+       
          /*   var l=p.node().getTotalLength(); 
             return p.attr({
               "stroke-dasharray": l / 10 + " " + l / 10,
@@ -75,7 +68,7 @@ svg{
 }
 .line{
   stroke:blue;
-  opacity: 0.4;
+  opacity: 0.6;
   stroke-width:2;
   fill:none;
 }
