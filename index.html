@@ -3,15 +3,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
 <script>
 //The data for our line 
- //This is the accessor function we talked about above
  var lineFunction = d3.svg.line()
                           .x(function(d) { return d.x; })
                           .y(function(d) { return d.y; })
-                         .interpolate("monotone");
+                         .interpolate("basis");
 
 
 //The SVG Container
-var svgContainer = d3.select("body").append("svg")
+var svg = d3.select("body").append("svg")
                                     .attr("width", 720)
                                     .attr("height", 480);
 //The line SVG Path we draw
@@ -29,82 +28,33 @@ d3.csv("data.csv", function(data) {
 */
 var i=0;
 //var l;
-d3.json("result_first_10min.json", function(error,data) { 
+d3.json("result_first_10min_noduplicate_time.json", function(error,data) { 
   for (traj in data) {
     var traj_data = data[traj];
-      if(i<100){
-          svgContainer.append("path")
-              .attr("stroke-dasharray",1200)
-              .attr("stroke-dashoffset",1200)
+          p = svg.append("path")
+              .attr("stroke-dasharray",2400 +' '+2400)
+              .attr("stroke-dashoffset",2400)
               .attr("d",lineFunction(traj_data))
-              .attr("class","line").transition().duration(30000).ease("linear").attr({
-    "stroke-dashoffset": -10000
-  });;
-          console.log(i);
-      }
-      else if(i>=100&&i<200){
-        svgContainer.append("path")
-              .attr("stroke-dasharray",1200)
-              .attr("stroke-dashoffset",1200)
-              .attr("d",lineFunction(traj_data))
-              .attr("class","line").transition().duration(8000).delay(i*300).ease("linear").attr({
-    "stroke-dashoffset": -10000
-  });;;
-        console.log(i);
-      }
-      else if(i>=200 && i<300){
-        svgContainer.append("path")
-              .attr("stroke-dasharray",1200)
-              .attr("stroke-dashoffset",1200)
-              .attr("d",lineFunction(traj_data))
-              .attr("class","line").transition().duration(8000).delay(i*300).ease("linear").attr({
-    "stroke-dashoffset": -10000
-  });;;
-        console.log(i);
-      }
-      else if(i>=300 && i<400){
-        svgContainer.append("path")
-              .attr("stroke-dasharray",1200)
-              .attr("stroke-dashoffset",1200)
-              .attr("d",lineFunction(traj_data))
-              .attr("class","line").transition().duration(20000).delay(i*300).ease("linear").attr({
-    "stroke-dashoffset": -10000
-  });;;
-        console.log(i);
-      }
-      else if(i>=400 && i<500){
-        svgContainer.append("path")
-              .attr("stroke-dasharray",1200)
-              .attr("stroke-dashoffset",1200)
-              .attr("d",lineFunction(traj_data))
-              .attr("class","line").transition().duration(20000).delay(i*300).ease("linear").attr({
-    "stroke-dashoffset": -10000
-  });;;
-        console.log(i);
-      }
-      else if(i>=500 && i<600){
-        svgContainer.append("path")
-              .attr("stroke-dasharray",1200)
-              .attr("stroke-dashoffset",1200)
-              .attr("d",lineFunction(traj_data))
-              .attr("class","line").transition().duration(20000).delay(i*300).ease("linear").attr({
-    "stroke-dashoffset": -10000
-  });;;
-        console.log(i);
-      }
-      else{
-        svgContainer.append("path")
-              .attr("stroke-dasharray",1200)
-              .attr("stroke-dashoffset",1200)
-              .attr("d",lineFunction(traj_data))
-              .attr("class","line").transition().duration(20000).delay(i*300).ease("linear").attr({
-    "stroke-dashoffset": -10000
-  });;;
-        console.log(i);
-      }
+              .attr("class","line").transition().duration(30000).delay(i*150).ease("linear").attr({
+                  "stroke-dashoffset": -10000
+              }).remove();
+           //  console.log(p);
+         //  var time =traj_data['time'];
+           console.log(traj_data);
+         /*   var l=p.node().getTotalLength(); 
+            return p.attr({
+              "stroke-dasharray": l / 10 + " " + l / 10,
+              "stroke-dashoffset": l
+            }).transition().duration(100000).delay(i*100).ease("linear").attr({
+              "stroke-dashoffset": -100000
+            });*/
+         //    console.log("Traj "+i+"length "+l);
       i++;
     }
+      
+
 });
+
                   
 </script>
 
@@ -112,7 +62,7 @@ d3.json("result_first_10min.json", function(error,data) {
 svg{
   background-image: url("Background.png")
 }
-path{
+.line{
   stroke:blue;
   opacity: 0.4;
   stroke-width:2;
