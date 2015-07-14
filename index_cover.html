@@ -1,5 +1,5 @@
 
-<body>  
+<body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
 <script>
 //The data for our line 
@@ -57,7 +57,7 @@ d3.json("result_first_10min_noduplicate_time.json", function(error,data) {
               "stroke-dashoffset": l+200
             }).transition().duration((end_time-appear_time)*100).delay((appear_time-11)*100).ease('linear').attr({
                   "stroke-dashoffset": 0
-              }).remove();
+              });
             console.log("Traj "+i+" "+l);
          /*   var l=p.node().getTotalLength(); 
             return p.attr({
@@ -87,5 +87,5 @@ svg{
   fill:none;
 }
  </style>
- <a href="index_cover.html"> traj stay on the screen</a>
+ <a href="index.html"> Real time traj</a>
 </body>
