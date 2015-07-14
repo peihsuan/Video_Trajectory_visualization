@@ -55,7 +55,7 @@ d3.json("result_first_10min_noduplicate_time.json", function(error,data) {
           p.attr({
               "stroke-dasharray": l+200,
               "stroke-dashoffset": l+200
-            }).transition().duration((end_time-appear_time)*100).delay((appear_time-11)*100).ease('linear').attr({
+            }).transition().duration((end_time-appear_time)*500).delay((appear_time-11)*500).ease('linear').attr({
                   "stroke-dashoffset": 0
               }).remove();
             console.log("Traj "+i+" "+l);
